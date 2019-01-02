@@ -23,6 +23,15 @@
     <Filter Include="State">
       <UniqueIdentifier>{b41664cf-a826-49c9-8b5d-964285f81c90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{8c0a0f7b-b231-4b23-bfea-1f02167c2358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{1d4e7d93-0cad-4682-9ebd-160b3797e606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{471c9466-0496-4837-88c9-687a4f58a574}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -52,6 +61,18 @@
     <ClCompile Include="Render\Model.cpp">
       <Filter>Render</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\OBJLoader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc\tiny_obj_loader.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\MouseController.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher\Launcher.h">
@@ -80,6 +101,18 @@
     </ClInclude>
     <ClInclude Include="Render\Mesh.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\OBJLoader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\GLMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\MouseController.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

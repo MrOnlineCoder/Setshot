@@ -24,6 +24,8 @@ public:
 	int run();
 
 	Renderer& getRenderer();
+
+	void setState(int index);
 private:
 	bool setup();
 	void shutdown();

@@ -24,7 +24,10 @@ public:
 
 	void bind();
 
-	std::size_t getCount();
+	std::size_t getIndeciesCount();
+	std::size_t getVerticesCount();
+
+	bool hasIndices();
 private:
 	void create(Mesh& mesh);
 
@@ -33,7 +36,9 @@ private:
 	GLuint m_vao;
 	std::array<GLuint, 5> m_buffers;
 
-	std::size_t m_count;
+	std::size_t m_verticesCount;
+	std::size_t m_indeciesCount;
+	bool m_hasIndices;
 };
 
 #endif

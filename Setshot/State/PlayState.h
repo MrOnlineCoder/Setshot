@@ -16,6 +16,11 @@
 #include "State.h"
 
 #include <Render/Model.h>
+#include <Render/Shader.h>
+
+#include <Render/Camera.h>
+
+#include <Input/MouseController.h>
 
 class PlayState : public State
 {
@@ -27,7 +32,15 @@ public:
 	void update(sf::Time deltaTime);
 	void render(Renderer& renderer);
 
+	void init();
+
 	Model* model;
+	Shader shader;
+
+	Camera cam;
+	MouseController mctrl;
+
+	sf::Clock clock;
 };
 
 #endif

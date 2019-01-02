@@ -33,6 +33,8 @@ public:
 	virtual void update(sf::Time deltaTime) = 0;
 	virtual void render(Renderer& renderer) = 0;
 
+	virtual void init() = 0;
+
 protected:
 	Game* m_game;
 };

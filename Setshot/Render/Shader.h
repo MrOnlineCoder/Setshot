@@ -15,6 +15,8 @@
 
 #include <string>
 
+#include <glm/gtc/matrix_transform.hpp>
+
 class Shader {
 public:
 	Shader();
@@ -26,6 +28,8 @@ public:
 	void setInteger(const char* name, int val);
 	void setFloat(const char* name, float val);
 	
+	void setMat4(const char* name, glm::mat4 mat);
+	void setMat3(const char* name, glm::mat3 mat);
 private:
 	bool compile(const char* vertexCode, const char* fragmentCode);
 

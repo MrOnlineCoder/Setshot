@@ -13,6 +13,10 @@
 
 #include <State/PlayState.h>
 
+float getFPS(const sf::Time& time) {
+	return (1000000.0f / time.asMicroseconds());
+}
+
 Game::Game(LaunchOptions opts) {
 	m_options = opts;
 
@@ -31,11 +35,24 @@ int Game::run() {
 	sf::Time delta;
 	sf::Clock frameClock;
 
+	bool debug = false;
+	int fps = 0;
+
+	setState(0);
+
 	while (m_render.getWindow().isOpen()) {
 		while (m_render.getWindow().pollEvent(ev)) {
 			if (ev.type == sf::Event::Closed) {
 				m_render.getWindow().close();
 				continue;
+			}
+
+			if (ev.type == sf::Event::KeyReleased) {
+				if (ev.key.code == sf::Keyboard::F2) {
+					debug = !debug;
+
+					m_render.setWireframeMode(debug);
+				}
 			}
 
 			m_states[m_currentState]->handleEvent(ev);
@@ -50,6 +67,7 @@ int Game::run() {
 		m_render.getWindow().display();
 
 		delta = frameClock.restart();
+		fps = getFPS(delta);
 	}
 
 	shutdown();
@@ -61,6 +79,12 @@ int Game::run() {
 
 Renderer & Game::getRenderer() {
 	return m_render;
+}
+
+void Game::setState(int index) {
+	m_currentState = index;
+
+	m_states[m_currentState]->init();
 }
 
 bool Game::setup() {

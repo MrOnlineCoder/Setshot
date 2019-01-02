@@ -15,6 +15,9 @@
 
 Model::Model(Mesh & mesh) {
 	m_vao = 0;
+	m_indeciesCount = 0;
+	m_hasIndices = false;
+	m_verticesCount = 0;
 
 	create(mesh);
 }
@@ -30,9 +33,17 @@ void Model::bind() {
 	glBindVertexArray(m_vao);
 }
 
-std::size_t Model::getCount()
-{
-	return m_count;
+
+std::size_t Model::getIndeciesCount() {
+	return m_indeciesCount;
+}
+
+std::size_t Model::getVerticesCount() {
+	return m_verticesCount;
+}
+
+bool Model::hasIndices() {
+	return m_hasIndices;
 }
 
 void Model::create(Mesh& mesh) {
@@ -44,12 +55,17 @@ void Model::create(Mesh& mesh) {
 	setupBuffer(BufferType::TEXCOORDS, 3, mesh.texCoords);
 	setupBuffer(BufferType::NORMALS, 3, mesh.normals);
 
-	//EBO
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[BufferType::INDICES]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * mesh.indices.size(), mesh.indices.data(), GL_STATIC_DRAW);
-	m_count = mesh.indices.size();
-
-	gLogger.tag("Model") << "Loaded model with " << mesh.vertices.size() << " vertices to VAO #" << m_vao;
+	if (!mesh.indices.empty()) {
+		//EBO
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[BufferType::INDICES]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * mesh.indices.size(), mesh.indices.data(), GL_STATIC_DRAW);
+		m_indeciesCount = mesh.indices.size();
+		m_hasIndices = true;
+	} else {
+		m_verticesCount = mesh.vertices.size() / 3;
+	}
+	
+	gLogger.tag("Model") << "Loaded model with " << m_verticesCount << " vertices to VAO #" << m_vao;
 }
 
 void Model::setupBuffer(int idx, int size, const std::vector<GLfloat>& data) {

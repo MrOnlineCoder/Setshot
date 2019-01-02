@@ -16,6 +16,8 @@
 
 #include <Logger/Logger.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 Shader::Shader() {
 	m_canBind = false;
 }
@@ -65,6 +67,14 @@ void Shader::setInteger(const char * name, int val) {
 
 void Shader::setFloat(const char * name, float val) {
 	glUniform1f(glGetUniformLocation(m_program, name), val);
+}
+
+void Shader::setMat4(const char * name, glm::mat4 mat) {
+	glUniformMatrix4fv(glGetUniformLocation(m_program, name), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Shader::setMat3(const char * name, glm::mat3 mat) {
+	glUniformMatrix3fv(glGetUniformLocation(m_program, name), 1, GL_FALSE, glm::value_ptr(mat));
 }
 
 bool Shader::compile(const char * vertexCode, const char * fragmentCode) {

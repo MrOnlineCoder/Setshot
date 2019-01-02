@@ -24,6 +24,11 @@ public:
 
 	sf::RenderWindow& getWindow();
 
+	void switchSFML();
+	void switch3D();
+
+	void setWireframeMode(bool enabled);
+
 	void shutdown();
 private:
 	sf::RenderWindow m_window;
