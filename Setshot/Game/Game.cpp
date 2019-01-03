@@ -22,6 +22,7 @@ Game::Game(LaunchOptions opts) {
 
 	m_currentState = 0;
 	m_debug = false;
+	m_wireframe = false;
 }
 
 int Game::run() {
@@ -47,8 +48,14 @@ int Game::run() {
 			if (ev.type == sf::Event::KeyReleased) {
 				if (ev.key.code == sf::Keyboard::F2) {
 					m_debug = !m_debug;
+				}
+			}
 
-					m_render.setWireframeMode(m_debug);
+			if (ev.type == sf::Event::KeyReleased) {
+				if (ev.key.code == sf::Keyboard::F3) {
+					m_wireframe = !m_wireframe;
+
+					m_render.setWireframeMode(m_wireframe);
 				}
 			}
 
@@ -65,10 +72,10 @@ int Game::run() {
 			m_render.startSFML();
 
 			updateDebugInfo();
-
+			
 			m_render.setWireframeMode(false);
 			m_render.render(m_debugText);
-			m_render.setWireframeMode(m_debug);
+			m_render.setWireframeMode(m_wireframe);
 
 			m_render.endSFML();
 		}
@@ -120,7 +127,7 @@ bool Game::setup() {
 
 	m_debugText.setFont(m_resources.getFont("main"));
 	m_debugText.setPosition(sf::Vector2f(15.0f, 15.0f));
-	m_debugText.setCharacterSize(12.0f);
+	m_debugText.setCharacterSize(14.0f);
 	m_debugText.setFillColor(sf::Color::Yellow);
 
 	m_states.push_back(new PlayState(*this));

@@ -79,6 +79,12 @@
     <ClCompile Include="Render\Texture.cpp">
       <Filter>Render</Filter>
     </ClCompile>
+    <ClCompile Include="Render\CubemapTexture.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Skybox.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher\Launcher.h">
@@ -124,6 +130,12 @@
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Render\Texture.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\CubemapTexture.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Skybox.h">
       <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>

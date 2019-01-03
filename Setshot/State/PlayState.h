@@ -18,6 +18,7 @@
 #include <Render/Model.h>
 #include <Render/Shader.h>
 #include <Render/Texture.h>
+#include <Render/Skybox.h>
 
 #include <Render/Camera.h>
 
@@ -39,6 +40,7 @@ public:
 	Shader shader;
 	sf::Shader sfshader;
 	Texture tex;
+	Skybox skybox;
 
 	Camera cam;
 	MouseController mctrl;

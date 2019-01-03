@@ -19,6 +19,7 @@
 
 class Model {
 public:
+	Model();
 	Model(Mesh& mesh);
 	~Model();
 
@@ -28,9 +29,9 @@ public:
 	std::size_t getVerticesCount();
 
 	bool hasIndices();
-private:
-	void create(Mesh& mesh);
 
+	void create(Mesh& mesh);
+private:
 	void setupBuffer(int idx, int size, const std::vector<GLfloat>& data);
 
 	GLuint m_vao;

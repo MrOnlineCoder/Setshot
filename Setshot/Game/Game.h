@@ -43,6 +43,7 @@ private:
 	bool m_debug;
 	sf::Text m_debugText;
 	std::stringstream m_debugStream;
+	bool m_wireframe;
 
 	void updateDebugInfo();
 

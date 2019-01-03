@@ -127,9 +127,11 @@
     <ClCompile Include="Misc\glad.c" />
     <ClCompile Include="Misc\tiny_obj_loader.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
+    <ClCompile Include="Render\CubemapTexture.cpp" />
     <ClCompile Include="Render\Model.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
     <ClCompile Include="Render\Shader.cpp" />
+    <ClCompile Include="Render\Skybox.cpp" />
     <ClCompile Include="Render\Texture.cpp" />
     <ClCompile Include="Resource\OBJLoader.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
@@ -142,10 +144,12 @@
     <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="Math\GLMath.h" />
     <ClInclude Include="Render\Camera.h" />
+    <ClInclude Include="Render\CubemapTexture.h" />
     <ClInclude Include="Render\Mesh.h" />
     <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Render\Shader.h" />
+    <ClInclude Include="Render\Skybox.h" />
     <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Resource\OBJLoader.h" />
     <ClInclude Include="Resource\ResourceManager.h" />

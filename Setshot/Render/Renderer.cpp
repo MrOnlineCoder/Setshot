@@ -70,8 +70,8 @@ void Renderer::switch3D(bool mode) {
 }
 
 void Renderer::clear() {
-	m_window.clear();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Renderer::setWireframeMode(bool enabled) {
@@ -94,6 +94,6 @@ void Renderer::resetGLObjects() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glUseProgram(0);
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

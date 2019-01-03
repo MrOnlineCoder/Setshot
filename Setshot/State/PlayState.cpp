@@ -33,6 +33,8 @@ PlayState::PlayState(Game & game)
 
 	cam.setFOV(90.0f);
 
+	skybox.loadFromFolder("Resources/Skybox/", "tga");
+
 	game.getRenderer().switch3D(true);
 }
 
@@ -86,10 +88,13 @@ void PlayState::update(sf::Time deltaTime) {
 
 	cam.setRotation(glm::vec3(mctrl.getPitch(), mctrl.getYaw(), 0.0f));
 
+	shader.bind();
 	shader.setMat4("MVP", cam.getProjectionMatrix() * cam.getViewMatrix() * glm::mat4(1.0f));
 }
 
 void PlayState::render(Renderer& renderer) {
+	skybox.render(cam.getProjectionMatrix(), cam.getViewMatrix());
+
 	shader.bind();
 	tex.bind();
 	model->bind();

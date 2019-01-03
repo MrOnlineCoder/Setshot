@@ -13,6 +13,13 @@
 
 #include <Logger/Logger.h>
 
+Model::Model() {
+	m_vao = 0;
+	m_indeciesCount = 0;
+	m_hasIndices = false;
+	m_verticesCount = 0;
+}
+
 Model::Model(Mesh & mesh) {
 	m_vao = 0;
 	m_indeciesCount = 0;
