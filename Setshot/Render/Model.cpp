@@ -52,7 +52,7 @@ void Model::create(Mesh& mesh) {
 
 	//VBOs
 	setupBuffer(BufferType::VERTICES, 3, mesh.vertices);
-	setupBuffer(BufferType::TEXCOORDS, 3, mesh.texCoords);
+	setupBuffer(BufferType::TEXCOORDS, 2, mesh.texCoords);
 	setupBuffer(BufferType::NORMALS, 3, mesh.normals);
 
 	if (!mesh.indices.empty()) {
@@ -65,7 +65,7 @@ void Model::create(Mesh& mesh) {
 		m_verticesCount = mesh.vertices.size() / 3;
 	}
 	
-	gLogger.tag("Model") << "Loaded model with " << m_verticesCount << " vertices to VAO #" << m_vao;
+	gLogger.tag("Model") << "Loaded model with " << m_verticesCount << " vertices, " << mesh.texCoords.size() << " texcoords to VAO #" << m_vao;
 }
 
 void Model::setupBuffer(int idx, int size, const std::vector<GLfloat>& data) {

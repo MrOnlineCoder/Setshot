@@ -73,6 +73,12 @@
     <ClCompile Include="Input\MouseController.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\ResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Texture.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher\Launcher.h">
@@ -113,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="Input\MouseController.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\ResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Texture.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

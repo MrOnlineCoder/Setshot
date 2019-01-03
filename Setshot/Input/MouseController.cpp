@@ -22,6 +22,8 @@ MouseController::MouseController() {
 void MouseController::grabMouse(sf::RenderWindow & target) {
 	isGrabbing = true;
 
+	target.setMouseCursorVisible(false);
+
 	centerPos = sf::Vector2i(target.getSize().x / 2, target.getSize().y / 2);
 
 	m_grabbedWindow = &target;
@@ -29,6 +31,8 @@ void MouseController::grabMouse(sf::RenderWindow & target) {
 
 void MouseController::ungrabMouse() {
 	isGrabbing = false;
+
+	m_grabbedWindow->setMouseCursorVisible(true);
 }
 
 bool MouseController::isGrabbingMouse() {

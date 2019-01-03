@@ -16,9 +16,9 @@
 #include <vector>
 
 enum BufferType {
-	VERTICES,
-	TEXCOORDS,
-	NORMALS,
+	VERTICES = 0,
+	TEXCOORDS = 1,
+	NORMALS = 2,
 	
 	INDICES
 };

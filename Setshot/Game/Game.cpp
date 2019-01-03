@@ -13,7 +13,7 @@
 
 #include <State/PlayState.h>
 
-float getFPS(const sf::Time& time) {
+float calculateFPS(const sf::Time& time) {
 	return (1000000.0f / time.asMicroseconds());
 }
 
@@ -21,6 +21,7 @@ Game::Game(LaunchOptions opts) {
 	m_options = opts;
 
 	m_currentState = 0;
+	m_debug = false;
 }
 
 int Game::run() {
@@ -32,11 +33,7 @@ int Game::run() {
 	gLogger.tag("Game") << "Entering game loop...";
 
 	sf::Event ev;
-	sf::Time delta;
 	sf::Clock frameClock;
-
-	bool debug = false;
-	int fps = 0;
 
 	setState(0);
 
@@ -49,25 +46,37 @@ int Game::run() {
 
 			if (ev.type == sf::Event::KeyReleased) {
 				if (ev.key.code == sf::Keyboard::F2) {
-					debug = !debug;
+					m_debug = !m_debug;
 
-					m_render.setWireframeMode(debug);
+					m_render.setWireframeMode(m_debug);
 				}
 			}
 
 			m_states[m_currentState]->handleEvent(ev);
 		}
 
-		m_states[m_currentState]->update(delta);
+		m_states[m_currentState]->update(m_frameDelta);
 
-		m_render.getWindow().clear();
+		m_render.clear();
 
 		m_states[m_currentState]->render(m_render);
 
+		if (m_debug) {
+			m_render.startSFML();
+
+			updateDebugInfo();
+
+			m_render.setWireframeMode(false);
+			m_render.render(m_debugText);
+			m_render.setWireframeMode(m_debug);
+
+			m_render.endSFML();
+		}
+
 		m_render.getWindow().display();
 
-		delta = frameClock.restart();
-		fps = getFPS(delta);
+		m_frameDelta = frameClock.restart();
+		m_fps = calculateFPS(m_frameDelta);
 	}
 
 	shutdown();
@@ -77,8 +86,20 @@ int Game::run() {
 	return 0;
 }
 
-Renderer & Game::getRenderer() {
+Renderer& Game::getRenderer() {
 	return m_render;
+}
+
+ResourceManager& Game::getResources() {
+	return m_resources;
+}
+
+sf::Time Game::getFrameDelta() {
+	return m_frameDelta;
+}
+
+long Game::getFPS() {
+	return m_fps;
 }
 
 void Game::setState(int index) {
@@ -94,6 +115,14 @@ bool Game::setup() {
 		return false;
 	}
 
+	gLogger.tag("Game") << "Initializing ResourceManager...";
+	m_resources.init();
+
+	m_debugText.setFont(m_resources.getFont("main"));
+	m_debugText.setPosition(sf::Vector2f(15.0f, 15.0f));
+	m_debugText.setCharacterSize(12.0f);
+	m_debugText.setFillColor(sf::Color::Yellow);
+
 	m_states.push_back(new PlayState(*this));
 
 	return true;
@@ -101,10 +130,19 @@ bool Game::setup() {
 
 void Game::shutdown() {
 	m_render.shutdown();
+	m_resources.destroy();
 
 	for (int i = 0; i < m_states.size(); i++) {
 		delete m_states[i];
 	}
 
 	gLogger.tag("Game") << "All systems shutdown!";
+}
+
+void Game::updateDebugInfo() {
+	m_debugStream.str("");
+
+	m_debugStream << "FPS: " << m_fps << " (" << m_frameDelta.asMilliseconds() << " ms.)";
+
+	m_debugText.setString(m_debugStream.str());
 }

@@ -14,7 +14,7 @@
 
 Camera::Camera() {
 	setAspectRatio(1280, 720);
-	setFOV(45.0f);
+	setFOV(50.0f);
 
 	m_pos = glm::vec3(0.0f, 0.0f, 5.0f);
 	m_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -46,11 +46,6 @@ void Camera::update() {
 
 	m_pos.y += m_velocity.y;
 
-	if (m_velocity != glm::vec3(0.0f, 0.0f, 0.0f)) {
-		//std::cout << "cam pos: x=" << m_pos.x << " y=" << m_pos.y << " z=" << m_pos.z << std::endl;
-	}
-
-
 	m_velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	makeViewMatrix();
@@ -73,7 +68,7 @@ glm::mat4& Camera::getProjectionMatrix() {
 }
 
 void Camera::makeProjection(float fov) {
-	m_proj = glm::perspective(glm::radians(fov), m_aspectRatio, 0.01f, 100.0f);
+	m_proj = glm::perspective(glm::radians(fov), m_aspectRatio, 0.01f, 300.0f);
 }
 
 void Camera::makeViewMatrix() {

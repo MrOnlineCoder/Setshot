@@ -15,8 +15,10 @@
 #include <Launcher/Launcher.h>
 #include <Render/Renderer.h>
 #include <State/State.h>
+#include <Resource/ResourceManager.h>
 
 #include <vector>
+#include <sstream>
 
 class Game {
 public:
@@ -24,6 +26,9 @@ public:
 	int run();
 
 	Renderer& getRenderer();
+	ResourceManager& getResources();
+	sf::Time getFrameDelta();
+	long getFPS();
 
 	void setState(int index);
 private:
@@ -32,6 +37,17 @@ private:
 
 	LaunchOptions m_options;
 	Renderer m_render;
+	ResourceManager m_resources;
+
+	//Debug stuff
+	bool m_debug;
+	sf::Text m_debugText;
+	std::stringstream m_debugStream;
+
+	void updateDebugInfo();
+
+	sf::Time m_frameDelta;
+	long m_fps;
 
 	std::vector<State*> m_states;
 	std::size_t m_currentState;

@@ -24,14 +24,25 @@ public:
 
 	sf::RenderWindow& getWindow();
 
-	void switchSFML();
-	void switch3D();
+	void startSFML();
+	void endSFML();
+	void switch3D(bool mode);
+
+	void clear();
 
 	void setWireframeMode(bool enabled);
 
 	void shutdown();
+
+
+	//All possible rendering methods
+	void render(sf::Text& txt);
 private:
+	void resetGLObjects();
+
 	sf::RenderWindow m_window;
+
+	bool is3D;
 };
 
 #endif

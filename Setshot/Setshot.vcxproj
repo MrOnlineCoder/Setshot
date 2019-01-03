@@ -130,7 +130,9 @@
     <ClCompile Include="Render\Model.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
     <ClCompile Include="Render\Shader.cpp" />
+    <ClCompile Include="Render\Texture.cpp" />
     <ClCompile Include="Resource\OBJLoader.cpp" />
+    <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="State\PlayState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +146,9 @@
     <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Render\Shader.h" />
+    <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Resource\OBJLoader.h" />
+    <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="State\PlayState.h" />
     <ClInclude Include="State\State.h" />
   </ItemGroup>

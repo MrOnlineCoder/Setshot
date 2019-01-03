@@ -33,6 +33,11 @@ Logger& Logger::tag(const std::string& str) {
 	return *this;
 }
 
+Logger& Logger::operator<<(const std::string & arg) {
+	m_file << arg;
+	return *this;
+}
+
 Logger& Logger::operator<<(std::string & arg) {
 	m_file << arg;
 	return *this;

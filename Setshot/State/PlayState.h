@@ -17,6 +17,7 @@
 
 #include <Render/Model.h>
 #include <Render/Shader.h>
+#include <Render/Texture.h>
 
 #include <Render/Camera.h>
 
@@ -36,6 +37,8 @@ public:
 
 	Model* model;
 	Shader shader;
+	sf::Shader sfshader;
+	Texture tex;
 
 	Camera cam;
 	MouseController mctrl;

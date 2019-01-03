@@ -19,28 +19,21 @@
 PlayState::PlayState(Game & game)
 	: State(game) {
 
-	/*float vertices[] = {
-	 -1.0f, -1.0f, 0.0f,
-	   1.0f, -1.0f, 0.0f,
-	   0.0f,  1.0f, 0.0f, 
-	};
-
-	std::vector<float> verts(vertices, vertices + sizeof vertices / sizeof vertices[0]);
-	//std::vector<unsigned int> inds(indices, indices + sizeof indices / sizeof indices[0]);
-
 	Mesh mesh;
-	//mesh.indices = inds;
-	mesh.vertices = verts;
-
-	model = new Model(mesh);*/
-
-	Mesh mesh;
-	OBJModelLoader::loadFromFile("Resources/cube.obj",mesh);
+	OBJModelLoader::loadFromFile("Resources/Models/house.obj",mesh);
 
 	model = new Model(mesh);
 
 	shader.loadFromFiles("Resources/Shaders/basic.vert", "Resources/Shaders/basic.frag");
 	shader.bind();
+
+	sfshader.loadFromFile("Resources/Shaders/basic.vert", "Resources/Shaders/basic.frag");
+
+	tex.loadFromFile("Resources/Textures/house.png");
+
+	cam.setFOV(90.0f);
+
+	game.getRenderer().switch3D(true);
 }
 
 PlayState::~PlayState() {
@@ -70,7 +63,8 @@ void PlayState::update(sf::Time deltaTime) {
 	glm::mat4 test(1.0f);
 
 	glm::vec3 vel(0.0f, 0.0f, 0.0f);
-	const float speed = 0.2f;
+	const float cam_speed = 15.0f;
+	const float speed = cam_speed * deltaTime.asSeconds();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		vel.z += speed;
@@ -97,7 +91,9 @@ void PlayState::update(sf::Time deltaTime) {
 
 void PlayState::render(Renderer& renderer) {
 	shader.bind();
+	tex.bind();
 	model->bind();
+	
 
 	glDrawArrays(GL_TRIANGLES, 0, model->getVerticesCount());
 }

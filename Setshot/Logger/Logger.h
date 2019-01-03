@@ -25,6 +25,7 @@ public:
 	Logger& tag(const std::string& str);
 	
 	Logger& operator<<(std::string& arg);
+	Logger& operator<<(const std::string& arg);
 	Logger& operator<<(const char* arg);
 	Logger& operator<<(int arg);
 	Logger& operator<<(float arg);
