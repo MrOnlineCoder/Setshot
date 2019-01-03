@@ -77,6 +77,10 @@ void Shader::setMat3(const char * name, glm::mat3 mat) {
 	glUniformMatrix3fv(glGetUniformLocation(m_program, name), 1, GL_FALSE, glm::value_ptr(mat));
 }
 
+void Shader::setVec3(const char * name, glm::vec3 vec) {
+	glUniform3f(glGetUniformLocation(m_program, name), vec.x, vec.y, vec.z);
+}
+
 bool Shader::compile(const char * vertexCode, const char * fragmentCode) {
 	int success = 0;
 	char errorData[512];

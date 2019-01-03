@@ -87,15 +87,18 @@ void PlayState::update(sf::Time deltaTime) {
 	cam.setVelocity(vel);
 
 	cam.setRotation(glm::vec3(mctrl.getPitch(), mctrl.getYaw(), 0.0f));
-
-	shader.bind();
-	shader.setMat4("MVP", cam.getProjectionMatrix() * cam.getViewMatrix() * glm::mat4(1.0f));
 }
 
 void PlayState::render(Renderer& renderer) {
 	skybox.render(cam.getProjectionMatrix(), cam.getViewMatrix());
 
 	shader.bind();
+	shader.setMat4(ShaderUniforms::ModelMatrix, glm::mat4(1.0f));
+	shader.setMat4(ShaderUniforms::ViewMatrix, cam.getViewMatrix());
+	shader.setMat4(ShaderUniforms::ProjectionMatrix, cam.getProjectionMatrix());
+	shader.setVec3(ShaderUniforms::LightningSource, glm::vec3(0.0f, 1000.0f, 0.0f));
+	shader.setFloat(ShaderUniforms::AmbientStrength, 0.2f);
+
 	tex.bind();
 	model->bind();
 	

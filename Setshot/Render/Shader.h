@@ -17,6 +17,15 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+namespace ShaderUniforms {
+	const static char* ModelMatrix = "uModelMatrix";
+	const static char* ProjectionMatrix = "uProjectionMatrix";
+	const static char* ViewMatrix = "uViewMatrix";
+
+	const static char* LightningSource = "uLightningSource";
+	const static char* AmbientStrength = "uAmbientStrength";
+}
+
 class Shader {
 public:
 	Shader();
@@ -30,6 +39,8 @@ public:
 	
 	void setMat4(const char* name, glm::mat4 mat);
 	void setMat3(const char* name, glm::mat3 mat);
+
+	void setVec3(const char* name, glm::vec3 vec);
 private:
 	bool compile(const char* vertexCode, const char* fragmentCode);
 
