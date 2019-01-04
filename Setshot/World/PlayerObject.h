@@ -11,11 +11,14 @@
 #ifndef PLAYEROBJECT_H
 #define PLAYEROBJECT_H
 
-#include "GameObject.h"
-
+#include <Input/MouseController.h>
 #include <Math/GLMath.h>
 
-const float PLAYER_SPEED = 0.3f;
+#include "GameObject.h"
+
+#include <World/World.h>
+
+const float PLAYER_SPEED = 15.5f;
 
 class PlayerObject : public GameObject {
 public:
@@ -26,6 +29,7 @@ public:
 	void render(Renderer& renderer);
 private:
 	glm::vec3 m_velocity;
+	MouseController m_mouseController;
 };
 
-#endif // !GAMEOBJECT_H
+#endif

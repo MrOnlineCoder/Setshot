@@ -40,9 +40,6 @@ public:
 private:
 	World* m_pWorld;
 
-	Camera cam;
-	MouseController mctrl;
-
 	sf::Clock clock;
 };
 

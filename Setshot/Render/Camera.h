@@ -21,7 +21,7 @@ public:
 	void setPosition(glm::vec3 pos);
 	void setRotation(glm::vec3 rot);
 
-	void setVelocity(glm::vec3 velocity);
+	void setVelocity(glm::vec3& velocity);
 
 	glm::vec3 getPosition();
 	glm::vec3 getRotation();

@@ -1,6 +1,9 @@
 #include "World.h"
 
+#include "GameObject.h"
+
 World::World(Game* game) {
+	m_game = game;
 	m_objects.reserve(64);
 }
 

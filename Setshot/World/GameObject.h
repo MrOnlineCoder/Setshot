@@ -28,7 +28,7 @@ public:
 	void kill();
 	bool isAlive();
 
-private:
+protected:
 	bool m_alive;
 	World* m_world;
 };

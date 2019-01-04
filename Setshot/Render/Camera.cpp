@@ -28,7 +28,7 @@ void Camera::setRotation(glm::vec3 rot) {
 	m_rotation = rot;
 }
 
-void Camera::setVelocity(glm::vec3 velocity) {
+void Camera::setVelocity(glm::vec3& velocity) {
 	m_velocity = velocity;
 }
 
