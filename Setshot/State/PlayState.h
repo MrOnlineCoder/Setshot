@@ -24,6 +24,8 @@
 
 #include <Input/MouseController.h>
 
+#include <World/World.h>
+
 class PlayState : public State
 {
 public:
@@ -35,12 +37,8 @@ public:
 	void render(Renderer& renderer);
 
 	void init();
-
-	Model* model;
-	Shader shader;
-	sf::Shader sfshader;
-	Texture tex;
-	Skybox skybox;
+private:
+	World* m_pWorld;
 
 	Camera cam;
 	MouseController mctrl;

@@ -13,11 +13,12 @@
 
 #include <State/PlayState.h>
 
-float calculateFPS(const sf::Time& time) {
+long calculateFPS(const sf::Time& time) {
 	return (1000000.0f / time.asMicroseconds());
 }
 
-Game::Game(LaunchOptions opts) {
+Game::Game(LaunchOptions opts)
+	: m_world(this) {
 	m_options = opts;
 
 	m_currentState = 0;
@@ -49,18 +50,23 @@ int Game::run() {
 				if (ev.key.code == sf::Keyboard::F2) {
 					m_debug = !m_debug;
 				}
-			}
 
-			if (ev.type == sf::Event::KeyReleased) {
 				if (ev.key.code == sf::Keyboard::F3) {
 					m_wireframe = !m_wireframe;
 
 					m_render.setWireframeMode(m_wireframe);
 				}
+
+				if (ev.key.code == sf::Keyboard::F10) {
+					m_render.getWindow().close();
+					continue;
+				}
 			}
 
 			m_states[m_currentState]->handleEvent(ev);
 		}
+
+		m_camera.update();
 
 		m_states[m_currentState]->update(m_frameDelta);
 
@@ -69,18 +75,11 @@ int Game::run() {
 		m_states[m_currentState]->render(m_render);
 
 		if (m_debug) {
-			m_render.startSFML();
-
 			updateDebugInfo();
-			
-			m_render.setWireframeMode(false);
 			m_render.render(m_debugText);
-			m_render.setWireframeMode(m_wireframe);
-
-			m_render.endSFML();
 		}
 
-		m_render.getWindow().display();
+		m_render.renderAll();
 
 		m_frameDelta = frameClock.restart();
 		m_fps = calculateFPS(m_frameDelta);
@@ -109,6 +108,14 @@ long Game::getFPS() {
 	return m_fps;
 }
 
+World& Game::getWorld() {
+	return m_world;
+}
+
+Camera& Game::getCamera() {
+	return m_camera;
+}
+
 void Game::setState(int index) {
 	m_currentState = index;
 
@@ -117,18 +124,21 @@ void Game::setState(int index) {
 
 bool Game::setup() {
 	gLogger.tag("Game") << "Initializing Renderer...";
-	if (!m_render.init(1280, 720, 60)) {
+	if (!m_render.init(1280, 720, 120)) {
 		gLogger.tag("Game") << "Renderer::init() failed.";
 		return false;
 	}
+	m_render.setCamera(m_camera);
 
 	gLogger.tag("Game") << "Initializing ResourceManager...";
 	m_resources.init();
 
 	m_debugText.setFont(m_resources.getFont("main"));
 	m_debugText.setPosition(sf::Vector2f(15.0f, 15.0f));
-	m_debugText.setCharacterSize(14.0f);
+	m_debugText.setCharacterSize(14);
 	m_debugText.setFillColor(sf::Color::Yellow);
+	m_debugText.setOutlineColor(sf::Color::Black);
+	m_debugText.setOutlineThickness(1.5f);
 
 	m_states.push_back(new PlayState(*this));
 
@@ -139,7 +149,7 @@ void Game::shutdown() {
 	m_render.shutdown();
 	m_resources.destroy();
 
-	for (int i = 0; i < m_states.size(); i++) {
+	for (auto i = 0; i < m_states.size(); i++) {
 		delete m_states[i];
 	}
 
@@ -149,7 +159,10 @@ void Game::shutdown() {
 void Game::updateDebugInfo() {
 	m_debugStream.str("");
 
-	m_debugStream << "FPS: " << m_fps << " (" << m_frameDelta.asMilliseconds() << " ms.)";
+	m_debugStream << "FPS: " << m_fps << " (" << m_frameDelta.asMilliseconds() << " ms.)\n";
+	m_debugStream << "State: " << m_currentState << "\n";
+	m_debugStream << "world.update(): " << m_world.getUpdateDelta().asMilliseconds() << " ms.\n";
+	m_debugStream << "Camera Position: " << m_camera.getPosition().x << ", " << m_camera.getPosition().y << ", " << m_camera.getPosition().z;
 
 	m_debugText.setString(m_debugStream.str());
 }

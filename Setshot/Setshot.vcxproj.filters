@@ -32,6 +32,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{471c9466-0496-4837-88c9-687a4f58a574}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{b5d6f5b3-5bb8-41c2-92de-81f95120fa2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -85,6 +88,18 @@
     <ClCompile Include="Render\Skybox.cpp">
       <Filter>Render</Filter>
     </ClCompile>
+    <ClCompile Include="World\World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="World\GameObject.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="World\PlayerObject.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="World\StaticObject.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher\Launcher.h">
@@ -137,6 +152,21 @@
     </ClInclude>
     <ClInclude Include="Render\Skybox.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="World\GameObject.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\PlayerObject.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Renderable.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="World\StaticObject.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

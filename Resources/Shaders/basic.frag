@@ -24,7 +24,8 @@ vec3 calculateAmbientColor() {
 
 void main() {
 	vec3 lightningColor = calculateAmbientColor() + calculateDiffuseColor();
-	vec4 textureColor = texture(uTexture, sharedTexCoord);
+	//vec4 textureColor = texture(uTexture, sharedTexCoord);
+	vec4 textureColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	vec4 result = vec4(lightningColor, 1.0f) * textureColor;
 	outFragmentColor = result;

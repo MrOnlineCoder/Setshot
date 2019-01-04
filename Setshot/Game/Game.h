@@ -14,8 +14,10 @@
 
 #include <Launcher/Launcher.h>
 #include <Render/Renderer.h>
+#include <Render/Camera.h>
 #include <State/State.h>
 #include <Resource/ResourceManager.h>
+#include <World/World.h>
 
 #include <vector>
 #include <sstream>
@@ -29,6 +31,8 @@ public:
 	ResourceManager& getResources();
 	sf::Time getFrameDelta();
 	long getFPS();
+	World& getWorld();
+	Camera& getCamera();
 
 	void setState(int index);
 private:
@@ -38,6 +42,8 @@ private:
 	LaunchOptions m_options;
 	Renderer m_render;
 	ResourceManager m_resources;
+	World m_world;
+	Camera m_camera;
 
 	//Debug stuff
 	bool m_debug;

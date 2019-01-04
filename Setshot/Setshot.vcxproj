@@ -77,6 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Thirdparty\SFML-2.5.1\include;$(SolutionDir)Thirdparty\glad;$(SolutionDir)Thirdparty\glm;$(SolutionDir)Thirdparty\single_header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Thirdparty\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -136,6 +137,10 @@
     <ClCompile Include="Resource\OBJLoader.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="State\PlayState.cpp" />
+    <ClCompile Include="World\GameObject.cpp" />
+    <ClCompile Include="World\PlayerObject.cpp" />
+    <ClCompile Include="World\StaticObject.cpp" />
+    <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Game.h" />
@@ -148,6 +153,7 @@
     <ClInclude Include="Render\Mesh.h" />
     <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Renderer.h" />
+    <ClInclude Include="Render\Renderable.h" />
     <ClInclude Include="Render\Shader.h" />
     <ClInclude Include="Render\Skybox.h" />
     <ClInclude Include="Render\Texture.h" />
@@ -155,6 +161,10 @@
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="State\PlayState.h" />
     <ClInclude Include="State\State.h" />
+    <ClInclude Include="World\GameObject.h" />
+    <ClInclude Include="World\PlayerObject.h" />
+    <ClInclude Include="World\StaticObject.h" />
+    <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger\Logger.cpp" />

@@ -27,6 +27,7 @@ bool Renderer::init(int w, int h, int fps) {
 	contextSettings.attributeFlags = sf::ContextSettings::Default;
 
 	m_window.create(sf::VideoMode(w,h), "Setshot by MrOnlineCoder", sf::Style::Titlebar | sf::Style::Close, contextSettings);
+	//m_window.create(sf::VideoMode(1440,900), "Setshot by MrOnlineCoder", sf::Style::Fullscreen, contextSettings);
 	m_window.setFramerateLimit(fps);
 	m_window.setActive();
 
@@ -37,6 +38,15 @@ bool Renderer::init(int w, int h, int fps) {
 
 	gLogger.tag("Renderer") << "Initialized OpenGL version " << GLVersion.major << "." << GLVersion.minor;
 
+
+	m_skybox.loadFromFolder("Resources/Skybox/", "tga");
+
+	if (!m_modelShader.loadFromFiles("Resources/Shaders/basic.vert", "Resources/Shaders/basic.frag")) {
+		return false;
+	}
+
+	m_modelQueue.reserve(100);
+	m_sfmlQueue.reserve(100);
 
 	is3D = false;
 	return true;
@@ -65,13 +75,19 @@ void Renderer::switch3D(bool mode) {
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 	}
-
-	
 }
 
 void Renderer::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void Renderer::initScene() {
+	if (is3D) m_skybox.render(m_cameraPtr->getProjectionMatrix(), m_cameraPtr->getViewMatrix());
+
+	m_modelShader.bind();
+	m_modelShader.setMat4(ShaderUniforms::ViewMatrix, m_cameraPtr->getViewMatrix());
+	m_modelShader.setMat4(ShaderUniforms::ProjectionMatrix, m_cameraPtr->getProjectionMatrix());
 }
 
 void Renderer::setWireframeMode(bool enabled) {
@@ -82,12 +98,56 @@ void Renderer::setWireframeMode(bool enabled) {
 	}
 }
 
+void Renderer::setLightPosition(glm::vec3 pos) {
+	m_lightPos = pos;
+}
+
 void Renderer::shutdown() {
 	
 }
 
+void Renderer::setCamera(Camera& cam) {
+	m_cameraPtr = &cam;
+}
+
 void Renderer::render(sf::Text& txt) {
-	m_window.draw(txt);
+	m_sfmlQueue.push_back(&txt);
+}
+
+void Renderer::render(Renderable & obj) {
+	m_modelQueue.push_back(&obj);
+}
+
+void Renderer::renderAll() {
+	for (std::size_t mI = 0; mI < m_modelQueue.size(); mI++) {
+		m_modelShader.setMat4(ShaderUniforms::ModelMatrix, glm::mat4(1.0f));
+
+		Renderable* obj = m_modelQueue[mI];
+
+		if (obj->texture) m_modelQueue[mI]->texture->bind();
+
+		m_modelQueue[mI]->model->bind();
+		
+		if (obj->model->hasIndices()) {
+			glDrawElements(GL_TRIANGLES, obj->model->getIndeciesCount(), GL_UNSIGNED_BYTE, 0);
+		} else {
+			glDrawArrays(GL_TRIANGLES, 0, obj->model->getVerticesCount());
+		}
+	}
+
+	m_modelQueue.clear();
+
+	startSFML();
+
+	for (std::size_t sI = 0; sI < m_sfmlQueue.size(); sI++) {
+		m_window.draw(*m_sfmlQueue[sI]);
+	}
+
+	endSFML();
+
+	m_sfmlQueue.clear();
+
+	m_window.display();
 }
 
 void Renderer::resetGLObjects() {

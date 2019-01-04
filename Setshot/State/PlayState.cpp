@@ -11,6 +11,8 @@
 #include "PlayState.h"
 
 #include <Resource/OBJLoader.h>
+#include <World/PlayerObject.h>
+#include <World/StaticObject.h>
 
 #include <Logger/Logger.h>
 
@@ -20,20 +22,21 @@ PlayState::PlayState(Game & game)
 	: State(game) {
 
 	Mesh mesh;
-	OBJModelLoader::loadFromFile("Resources/Models/house.obj",mesh);
+	OBJModelLoader::loadFromFile("Resources/Models/sfml.obj",mesh);
 
-	model = new Model(mesh);
+	//model = new Model(mesh);
 
-	shader.loadFromFiles("Resources/Shaders/basic.vert", "Resources/Shaders/basic.frag");
-	shader.bind();
-
-	sfshader.loadFromFile("Resources/Shaders/basic.vert", "Resources/Shaders/basic.frag");
-
-	tex.loadFromFile("Resources/Textures/house.png");
+	//tex.loadFromFile("Resources/Textures/default.png");
 
 	cam.setFOV(90.0f);
+	cam.setAspectRatio(game.getRenderer().getWindow().getSize().x, game.getRenderer().getWindow().getSize().y);
 
-	skybox.loadFromFolder("Resources/Skybox/", "tga");
+	//skybox.loadFromFolder("Resources/Skybox/", "tga");
+
+	m_pWorld = &game.getWorld();
+
+	m_pWorld->addObject(new PlayerObject(*m_pWorld));
+	m_pWorld->addObject(new StaticObject(*m_pWorld));
 
 	game.getRenderer().switch3D(true);
 }
@@ -48,7 +51,7 @@ void PlayState::handleEvent(sf::Event& e) {
 	}
 
 	if (e.type == sf::Event::KeyReleased) {
-		if (e.key.code == sf::Keyboard::F10) {
+		if (e.key.code == sf::Keyboard::F4) {
 			if (mctrl.isGrabbingMouse()) {
 				mctrl.ungrabMouse();
 			} else {
@@ -59,8 +62,9 @@ void PlayState::handleEvent(sf::Event& e) {
 }
 
 void PlayState::update(sf::Time deltaTime) {
-	cam.update();
 	mctrl.update();
+
+	m_pWorld->update(deltaTime);
 
 	glm::mat4 test(1.0f);
 
@@ -84,26 +88,15 @@ void PlayState::update(sf::Time deltaTime) {
 		vel.x += speed;
 	}
 
-	cam.setVelocity(vel);
+	m_game->getCamera().setVelocity(vel);
 
-	cam.setRotation(glm::vec3(mctrl.getPitch(), mctrl.getYaw(), 0.0f));
+	m_game->getCamera().setRotation(glm::vec3(mctrl.getPitch(), mctrl.getYaw(), 0.0f));
 }
 
 void PlayState::render(Renderer& renderer) {
-	skybox.render(cam.getProjectionMatrix(), cam.getViewMatrix());
+	renderer.initScene();
 
-	shader.bind();
-	shader.setMat4(ShaderUniforms::ModelMatrix, glm::mat4(1.0f));
-	shader.setMat4(ShaderUniforms::ViewMatrix, cam.getViewMatrix());
-	shader.setMat4(ShaderUniforms::ProjectionMatrix, cam.getProjectionMatrix());
-	shader.setVec3(ShaderUniforms::LightningSource, glm::vec3(0.0f, 1000.0f, 0.0f));
-	shader.setFloat(ShaderUniforms::AmbientStrength, 0.2f);
-
-	tex.bind();
-	model->bind();
-	
-
-	glDrawArrays(GL_TRIANGLES, 0, model->getVerticesCount());
+	m_pWorld->render(renderer);
 }
 
 void PlayState::init() {
