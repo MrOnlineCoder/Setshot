@@ -5,12 +5,16 @@
 World::World(Game* game) {
 	m_game = game;
 	m_objects.reserve(64);
+
+	m_physics.init();
 }
 
 World::~World() {
 	for (auto i = 0; i < m_objects.size(); i++) {
 		delete m_objects[i];
 	}
+
+	m_physics.destroy();
 }
 
 void World::update(sf::Time delta) {
@@ -43,4 +47,8 @@ sf::Time World::getUpdateDelta() {
 
 Game& World::getGame() {
 	return *m_game;
+}
+
+Physics& World::getPhysics() {
+	return m_physics;
 }

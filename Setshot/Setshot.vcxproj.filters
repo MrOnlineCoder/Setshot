@@ -35,6 +35,9 @@
     <Filter Include="World">
       <UniqueIdentifier>{b5d6f5b3-5bb8-41c2-92de-81f95120fa2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{7d161668-6104-423f-904d-b5858c6dac42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -99,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="World\StaticObject.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Physics.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +173,12 @@
     </ClInclude>
     <ClInclude Include="World\StaticObject.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Transform.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -76,12 +76,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Thirdparty\SFML-2.5.1\include;$(SolutionDir)Thirdparty\glad;$(SolutionDir)Thirdparty\glm;$(SolutionDir)Thirdparty\single_header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Thirdparty\SFML-2.5.1\include;$(SolutionDir)Thirdparty\glad;$(SolutionDir)Thirdparty\glm;$(SolutionDir)Thirdparty\single_header;$(SolutionDir)Thirdparty\bullet-2.88\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)Thirdparty\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Thirdparty\SFML-2.5.1\lib;$(SolutionDir)Thirdparty\bullet-2.88\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;LinearMath_Debug.lib;BulletDynamics_Debug.lib;BulletCollision_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,6 +127,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Misc\glad.c" />
     <ClCompile Include="Misc\tiny_obj_loader.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\CubemapTexture.cpp" />
     <ClCompile Include="Render\Model.cpp" />
@@ -148,6 +149,8 @@
     <ClInclude Include="Launcher\Launcher.h" />
     <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="Math\GLMath.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\Transform.h" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\CubemapTexture.h" />
     <ClInclude Include="Render\Mesh.h" />

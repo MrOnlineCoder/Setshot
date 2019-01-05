@@ -17,6 +17,8 @@
 
 #include "GameObject.h"
 
+#include <Physics/Physics.h>
+
 class Game;
 
 class World {
@@ -33,10 +35,12 @@ public:
 	sf::Time getUpdateDelta();
 
 	Game& getGame();
+	Physics& getPhysics();
 private:
 	std::vector<GameObject*> m_objects;
 
 	Game* m_game;
+	Physics m_physics;
 	
 	sf::Time m_updateDelta;
 	sf::Clock m_updateClock;

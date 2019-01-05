@@ -120,9 +120,13 @@ void Renderer::render(Renderable & obj) {
 
 void Renderer::renderAll() {
 	for (std::size_t mI = 0; mI < m_modelQueue.size(); mI++) {
-		m_modelShader.setMat4(ShaderUniforms::ModelMatrix, glm::mat4(1.0f));
-
 		Renderable* obj = m_modelQueue[mI];
+
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+
+		modelMatrix = glm::translate(modelMatrix, obj->transform->position);
+
+		m_modelShader.setMat4(ShaderUniforms::ModelMatrix, modelMatrix);
 
 		if (obj->texture) m_modelQueue[mI]->texture->bind();
 

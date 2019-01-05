@@ -14,16 +14,19 @@
 
 #include "Model.h"
 #include "Texture.h"
+#include <Physics/Transform.h>
 
 class Renderable {
 public:
 	Model* model;
 	Texture* texture;
+	Transform* transform;
 
-	static Renderable make(Model& model, Texture& tex) {
+	static Renderable make(Model& model, Texture& tex, Transform& transform) {
 		Renderable obj;
 		obj.model = &model;
 		obj.texture = &tex;
+		obj.transform = &transform;
 		
 		return obj;
 	}

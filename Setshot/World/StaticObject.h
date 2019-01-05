@@ -16,6 +16,8 @@
 #include <Math/GLMath.h>
 
 #include <Render/Renderable.h>
+#include <Physics/Transform.h>
+
 
 class StaticObject : public GameObject {
 public:
@@ -25,6 +27,7 @@ public:
 private:
 	Model m_model;
 	Texture m_texture;
+	Transform m_transform;
 
 	Renderable m_renderData;
 };

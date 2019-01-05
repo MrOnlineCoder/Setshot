@@ -22,7 +22,10 @@ StaticObject::StaticObject(World & world)
 
 	m_texture.loadFromFile("Resources/Textures/default.png");
 
-	m_renderData = Renderable::make(m_model, m_texture);
+	m_transform = Transform();
+	m_transform.position = glm::vec3(0.0f, 10.0f, 0.0f);
+
+	m_renderData = Renderable::make(m_model, m_texture, m_transform);
 }
 
 void StaticObject::render(Renderer & renderer) {
