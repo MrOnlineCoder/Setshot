@@ -17,6 +17,7 @@
 
 #include <Render/Renderable.h>
 #include <Physics/Transform.h>
+#include <Physics/PhysicsNode.h>
 
 
 class StaticObject : public GameObject {
@@ -28,6 +29,7 @@ private:
 	Model m_model;
 	Texture m_texture;
 	Transform m_transform;
+	PhysicsNode m_physNode;
 
 	Renderable m_renderData;
 };

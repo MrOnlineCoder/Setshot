@@ -16,12 +16,15 @@
 
 #include <SFML/System/Clock.hpp>
 
+#include "PhysicsNode.h"
+
 const btVector3 WORLD_GRAVITY = btVector3(0.0, -9.8, 0.0);
 
 class Physics {
 public:
 	void init();
 	void update(sf::Time delta);
+	void registerNode(PhysicsNode* node);
 	void destroy();
 private:
 	btBroadphaseInterface* m_broadphase;

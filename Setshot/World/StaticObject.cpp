@@ -12,6 +12,8 @@
 
 #include <Resource/OBJLoader.h>
 
+#include <Game/Game.h>
+
 StaticObject::StaticObject(World & world)
 	:GameObject(world){
 	Mesh mesh;
@@ -26,8 +28,13 @@ StaticObject::StaticObject(World & world)
 	m_transform.position = glm::vec3(0.0f, 10.0f, 0.0f);
 
 	m_renderData = Renderable::make(m_model, m_texture, m_transform);
+
+	m_physNode.makeSphere(&m_transform, 1.5f, 1.5f);
+
+	world.getPhysics().registerNode(&m_physNode);
 }
 
 void StaticObject::render(Renderer & renderer) {
+	m_physNode.syncTransform();
 	renderer.render(m_renderData);
 }

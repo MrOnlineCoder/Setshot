@@ -18,6 +18,8 @@ World::~World() {
 }
 
 void World::update(sf::Time delta) {
+	m_physics.update(delta);
+
 	for (auto i = 0; i < m_objects.size(); i++) {
 		m_objects[i]->update(delta);
 	}

@@ -27,7 +27,13 @@ void Physics::init() {
 }
 
 void Physics::update(sf::Time delta) {
+	m_dWorld->stepSimulation(delta.asSeconds());
 
+	std::cout << "updated physics\n";
+}
+
+void Physics::registerNode(PhysicsNode * node) {
+	m_dWorld->addRigidBody(&node->getRigidBody());
 }
 
 void Physics::destroy() {

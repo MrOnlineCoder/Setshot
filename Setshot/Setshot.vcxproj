@@ -128,6 +128,7 @@
     <ClCompile Include="Misc\glad.c" />
     <ClCompile Include="Misc\tiny_obj_loader.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Physics\PhysicsNode.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\CubemapTexture.cpp" />
     <ClCompile Include="Render\Model.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="Math\GLMath.h" />
     <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\PhysicsNode.h" />
     <ClInclude Include="Physics\Transform.h" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\CubemapTexture.h" />
